@@ -1,0 +1,48 @@
+.card-item {
+    @apply grid grid-cols-12 overflow-hidden rounded-tr-3xl rounded-bl-3xl drop-shadow-xl xs:block;
+    &-grid {
+      @apply grid w-[90%] gap-3 xs:w-auto xs:grid-cols-3 lg:-mr-[5%] lg:-ml-[18%] xl:mr-0 xl:-ml-[15%];
+    }
+    &-thum {
+      @apply relative col-span-4 overflow-hidden;
+      img {
+        @apply absolute left-0 top-0 h-full w-full object-cover xs:relative xs:h-auto xs:object-contain;
+      }
+    }
+    &-body {
+      @apply col-span-8;
+    }
+    &-desc,
+    &-title {
+      @apply bg-light text-center text-primary;
+    }
+    &:nth-child(even) {
+      .card-item-desc,
+      .card-item-title {
+        @apply bg-gradient-to-b from-secondary to-primary text-white;
+      }
+      .card-item-title {
+        &:before,
+        &:after {
+          @apply bg-white;
+        }
+      }
+    }
+
+    &-title {
+      @apply relative py-2 font-serif text-[4.6666vw] drop-shadow-lg before:content-[''] after:content-[''] xs:text-[1.05rem] sm:text-[1.15rem] xl:text-[1.25rem];
+      &:before,
+      &:after {
+        @apply absolute left-0 h-[1px] w-full bg-primary opacity-30;
+      }
+      &:before {
+        @apply top-[3px];
+      }
+      &:after {
+        @apply bottom-[3px];
+      }
+    }
+    &-desc {
+      @apply py-3.5 text-[3.6666vw] font-medium xs:text-[2.11111vw] sm:text-sm;
+    }
+  }

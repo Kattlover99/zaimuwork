@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --BaseLineHeight: 1.8;
+    --DesktopButtonH: 60px;
+    --MobileButtonH: 58px;
+    --custom-gutter-x: 1.5rem;
+    --clr-body: #3a3b44;
+    --clr-primary: #0c94b1;
+    --clr-secondary: #176983;
+    --clr-pincolor: #feffc2;
+    --clr-odd: #eef4f6;
+    --clr-even: #e0e7eb;
+    --clr-light: #e1f1f6;
+    --clr-light02: #d6f4fe;
+    --clr-bg01-main: #b3dfee;
+    --clr-bg02-main: #5ab3c6;
+    --icon-space: 0.5rem;
+    --ribbonSize: 32px;
+  }
+  input,
+  textarea,
+  input[type="checkbox"] {
+    outline: none;
+  }
+  input,
+  textarea,
+  select {
+    @apply border-[1px] border-solid border-transparent;
+  }
+  input,
+  select {
+    @apply p-3.5 leading-4;
+  }
+  select {
+    @apply h-[51px] appearance-none;
+  }
+}
+
+%Tenmin {
+  font-family: ten-mincho-text, serif;
+  font-weight: 400;
+  font-style: normal;
+}

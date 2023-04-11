@@ -1,0 +1,59 @@
+---
+export interface Props {
+  title: string;
+  label?: string;
+  countnum?: number;
+  img?: string;
+}
+const { title, label, countnum = 1, img } = Astro.props;
+---
+
+<div class="card-panel inview fade_up">
+  {
+    img && (
+      <div class="card-panel__img">
+        <figure class="image_aspect scale-image inview image_overlay">
+          <img src={`images/flow_0${countnum}.jpg`} alt={title} />
+        </figure>
+      </div>
+    )
+  }
+  <div class="card-panel__body">
+    <span class="numr"
+      ><span><span class="font-num">{countnum}</span></span>
+    </span>
+    <h5 class="title">{title}</h5>
+    <p class="!leading-[1.45]"><slot /></p>
+  </div>
+</div>
+<style lang="scss">
+  .card-panel {
+    @apply mx-auto overflow-hidden rounded-2xl bg-secondary text-white drop-shadow-lg md:max-w-full;
+    &__body {
+      @apply relative px-5 py-6;
+      .numr {
+        @apply absolute -top-7 w-[18%];
+        > span {
+          @apply relative block w-full rounded-full border-[1px] border-dashed pt-[100%];
+          > span {
+            @apply absolute left-0 top-0 flex h-full w-full items-center justify-center text-[2.5rem];
+          }
+        }
+      }
+      .title {
+        @apply mb-3.5 text-center font-serif text-[1.45rem];
+      }
+      p {
+        @apply mb-4 text-[.95rem];
+      }
+    }
+    &__img {
+      .image_aspect {
+        @apply relative pt-[67.39%];
+        img {
+          @apply absolute top-0 left-0 -z-10 h-full w-full object-cover;
+        }
+      }
+    }
+  }
+</style>

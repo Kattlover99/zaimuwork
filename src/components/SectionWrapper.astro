@@ -1,0 +1,44 @@
+---
+export interface Props {
+  csize?: string;
+  id?: string;
+  sclass: string;
+  bg?: string;
+  bgimg?: string;
+}
+const { id, sclass, csize, bg, bgimg, ...attrs } = Astro.props;
+---
+
+<section id={id} class={`section__common section__${sclass} ${bg ? bg : ""} ${bgimg && "has_bgimg"}`}>
+  {bgimg && <img src={bgimg} alt="" class="bg-image" />}
+  <div class={csize ? csize : "container"}>
+    <slot />
+  </div>
+</section>
+<script>
+  const InViews = document.querySelectorAll(".inview");
+  window.addEventListener("scroll", checkInviews);
+  checkInviews();
+  function checkInviews() {
+    const triggerBottom = (window.innerHeight / 5) * 4;
+
+    InViews.forEach((InView) => {
+      const sectionTop = InView.getBoundingClientRect().top;
+
+      if (sectionTop < triggerBottom) {
+        InView.classList.add("is-view");
+      } else {
+        InView.classList.remove("is-view");
+      }
+    });
+  }
+</script>
+<style lang="scss">
+  .has_bgimg {
+    z-index: 1;
+  }
+  .bg-image {
+    @apply absolute left-0 top-0 h-full w-full object-cover;
+    z-index: -1;
+  }
+</style>

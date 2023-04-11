@@ -1,0 +1,44 @@
+---
+import ContactLink from "./ContactLink.astro";
+import { Logo } from "./Icons.jsx";
+import Modal from "./Modal.astro";
+---
+
+<footer class="footer">
+  <div class="max-w-8xl mx-auto">
+    <div class="justify-between items-center flex flex-col sm:flex-row">
+      <div class="mb-6 sm:mb-0 sm:flex order-2 sm:order-1">
+        <div class="footer_logo"><Logo /></div>
+        <div class="footer_info">
+          <ul class="contact_act">
+            <ContactLink openhour={true} isnum={true} footer={true} />
+          </ul>
+        </div>
+      </div>
+      <p class="copyright m-0 text-xs order-3 sm:order-2">copyright &copy; 2023 Y&amp;S Inc. All Right Reserved.</p>
+      <ul class="footer_nav mb-4 sm:mb-0 order-1 sm:order-3">
+        <li><span class="footer_nav_link open-modal">プライバシーポリシー</span></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<Modal />
+<style lang="scss">
+  .footer {
+    @apply bg-secondary py-3 px-8 text-white;
+    &_nav {
+      &_link {
+        @apply text-xs cursor-pointer;
+      }
+    }
+  }
+  .footer_logo {
+    @apply flex w-[110px] mx-auto sm:mx-0;
+  }
+  .footer_info {
+    @apply flex items-center justify-center mt-4 sm:mt-0 sm:justify-start mx-auto sm:ml-8 sm:mr-0;
+  }
+  .copyright {
+    @apply text-center sm:text-left opacity-50;
+  }
+</style>

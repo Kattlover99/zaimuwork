@@ -1,0 +1,107 @@
+---
+import CheckCircle from "astro-heroicons/solid/CheckCircle.astro";
+const { imgs, cls, labels, caption, anim = "reveal-overlay" } = Astro.props;
+---
+
+<div class={`${imgs.length > 1 ? "elem-imgs" : "elem-imgs single"} ${caption && "has_caption"}`}>
+  {
+    imgs.map((img, i) => (
+      <div class={`elem-img_grid elem-img_grid_0${++i}`}>
+        <figure class={`elem-img inview ${anim}`}>
+          <img src={img.src} alt={img.alt} class={cls} />
+        </figure>
+      </div>
+    ))
+  }
+  {
+    labels && (
+      <div class="labels">
+        {labels.map((label) => (
+          <span class="label">
+            <CheckCircle />
+            {label}
+          </span>
+        ))}
+      </div>
+    )
+  }
+  {
+    caption && (
+      <div class="heading_main heading_main__small text-secondary font-serif">
+        <Fragment set:html={caption} />
+      </div>
+    )
+  }
+</div>
+<style lang="scss">
+  .elem {
+    &-img {
+      &_grid {
+        @apply drop-shadow-lg;
+        &_01 {
+          @apply w-[60%];
+          .elem-img {
+            padding-top: 114%;
+          }
+        }
+        &_02 {
+          @apply absolute top-[6%] right-0 aspect-square w-[35%];
+          .elem-img {
+            padding-top: 100%;
+          }
+        }
+        &_03 {
+          @apply relative ml-auto mr-[7%] -mt-[20%] w-[54%];
+          .elem-img {
+            padding-top: 89.035%;
+          }
+        }
+      }
+    }
+    &-imgs {
+      @apply relative mx-auto lg:w-[85%];
+      .elem-img {
+        @apply relative h-0;
+        img {
+          @apply absolute left-0 top-0 right-0 bottom-0 h-full w-full object-cover;
+        }
+      }
+    }
+    &-imgs.single {
+      @apply max-w-[380px] lg:max-w-full lg:ml-0;
+      .elem-img_grid_01 {
+        @apply mx-auto w-full;
+        .elem-img {
+          padding-top: 100%;
+        }
+      }
+      &.has_caption {
+        @apply flex-col flex md:block;
+        .elem-img_grid {
+          @apply order-2;
+        }
+        .heading_main {
+          @apply order-1 mb-6 md:mb-0;
+        }
+        .labels {
+          @apply order-3;
+        }
+      }
+    }
+  }
+  .labels {
+    @apply relative -mt-4 flex justify-center;
+    .label {
+      @apply bg-secondary flex items-center px-2 py-1 font-bold tracking-widest text-white;
+      + .label {
+        @apply ml-2;
+      }
+      svg {
+        @apply mr-2 h-5 w-5;
+      }
+    }
+    + div {
+      @apply mt-4;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+const TelNum = "03-6803-8667";
+const LinkTel = `tel:${TelNum}`;
+---
+
+<div class="modal hidden">
+  <div class="overlay hidden"></div>
+  <div class="modal_content">
+    <div class="modal_header">
+      <h4 class="modal_title">プライバシーポリシー</h4><button
+        class="modal_close btn-close">⨉</button
+      >
+    </div>
+    <div class="modal_body">
+      <div class="p_block"><p>株式会社Y&amp;S（以下「当社」）は、下記の通りプライバシーポリシーを定め、社内の個人情報管理体制の強化に努めて参ります。</p></div>
+      <div class="p_block">
+        <h3>個人情報保護方針</h3>
+        <p>当社は、以下のとおり個人情報保護方針を定め、個人情報保護の仕組みを構築し、全従業員に個人情報保護の重要性の認識と取組みを徹底させることにより、個人情報の保護を推進致します。</p>
+      </div>
+      <div class="p_block">
+        <h3>個人情報の管理</h3>
+        <p>当社は、お客さまの個人情報を正確かつ最新の状態に保ち、個人情報への不正アクセス・紛失・破損・改ざん・漏洩などを防止するため、セキュリティシステムの維持・管理体制の整備・社員教育の徹底等の必要な措置を講じ、安全対策を実施し個人情報の厳重な管理を行ないます。</p>
+      </div>
+      <div class="p_block">
+        <h3>個人情報の利用目的</h3>
+        <p>本ウェブサイトでは、お客様からのお問い合わせ時に、お名前、e-mailアドレス、電話番号等の個人情報をご登録いただく場合がございますが、これらの個人情報はご提供いただく際の目的以外では利用いたしません。</p>
+        <p>お客さまからお預かりした個人情報は、当社からのご連絡や業務のご案内やご質問に対する回答として、電子メールや資料のご送付に利用いたします。</p>
+        <h4>個人情報の第三者への開示・提供の禁止</h4>
+        <p>当社は、お客さまよりお預かりした個人情報を適切に管理し、次のいずれかに該当する場合を除き、個人情報を第三者に開示いたしません。</p>
+        <ul class="ul_list">
+          <li>お客さまの同意がある場合</li>
+          <li>お客さまが希望されるサービスを行なうために当社が業務を委託する業者に対して開示する場合</li>
+          <li>法令に基づき開示することが必要である場合</li>
+        </ul>
+        <h4>個人情報の安全対策</h4>
+        <p>当社は、個人情報の正確性及び安全性確保のために、セキュリティに万全の対策を講じています。</p>
+      </div>
+      <div class="p_block">
+        <h3>ご本人の照会</h3>
+        <p>お客さまがご本人の個人情報の照会・修正・削除などをご希望される場合には、ご本人であることを確認の上、対応させていただきます。</p>
+      </div>
+      <div class="p_block">
+        <h3>法令、規範の遵守と見直し</h3>
+        <p>当社は、保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。</p>
+      </div>
+      <div class="p_block">
+        <h3>プライバシーポリシーに関するお問い合わせ</h3>
+        <p>当社の個人情報の取扱に関するお問い合わせは下記までご連絡ください。</p>
+        <p>本社／東京都港区浜松町2丁目2-15 浜松町ダイヤハイツ2F<br>メールアドレス／<a class="underlink" href="mailto:info@zeimuchosa.com ">info@zeimuchosa.com </a><br>電話番号／<a class="underlink" href={LinkTel}>{TelNum}</a> 受付時間 10:00～18:00（土日祝日を除く）</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .underlink {
+    @apply underline text-primary;
+  }
+  .ul_list {
+    @apply list-disc pl-4;
+  }
+  .modal {
+    @apply py-4 fixed left-0 top-0 right-0 bottom-0 flex h-full w-full flex-col items-center justify-center;
+    z-index: 9992;
+    &_content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      width: 450px;
+      max-width: calc(100% - 2rem);
+      min-height: 250px;
+      max-height: calc(100% - 2rem);
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+    }
+    &_header, &_body {
+      @apply px-4 py-2;
+    }
+    &_header {
+      @apply flex items-center justify-between text-lg;
+      border-bottom: 1px solid #e9ecef;
+    }
+    &_body {
+      @apply py-4 overflow-auto;
+      flex: 1;
+    }
+    &_title {
+      @apply font-bold;
+      flex: 1;
+    }
+  }
+  .btn-close {
+    @apply cursor-pointer rounded-xl p-2;
+  }
+  .overlay {
+    @apply fixed left-0 top-0 right-0 bottom-0 h-full w-full;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: -1;
+  }
+  .p_block {
+    h3 {
+      @apply font-bold mb-4 relative pl-[20px];
+      &:before {
+        content: '';
+        @apply absolute w-[4px] h-[80%] left-0 top-[0.15em] bg-secondary;
+      }
+    }
+    h4 {
+      @apply mt-6 mb-3.5 font-bold;
+    }
+    p, ul {
+      @apply text-sm;
+      +p, +ul {
+        @apply mt-2;
+      }
+    }
+    +.p_block {
+      @apply mt-7;
+    }
+  }
+</style>
+<script>
+  const backfaceFixed = (fixed) => {
+    /**
+     * 表示されているスクロールバーとの差分を計測し、背面固定時はその差分body要素に余白を生成する
+     */
+    const scrollbarWidth = window.innerWidth - document.body.clientWidth;
+    document.body.style.paddingRight = fixed ? `${scrollbarWidth}px` : "";
+
+    /**
+     * スクロール位置を取得する要素を出力する(`html`or`body`)
+     */
+    const scrollingElement = () => {
+      const browser = window.navigator.userAgent.toLowerCase();
+      if ("scrollingElement" in document) return document.scrollingElement;
+      if (browser.indexOf("webkit") > 0) return document.body;
+      return document.documentElement;
+    };
+
+    /**
+     * 変数にスクロール量を格納
+     */
+    const scrollY = fixed
+      ? scrollingElement().scrollTop
+      : parseInt(document.body.style.top || "0");
+
+    /**
+     * CSSで背面を固定
+     */
+    const styles = {
+      height: "100vh",
+      left: "0",
+      overflow: "hidden",
+      position: "fixed",
+      top: `${scrollY * -1}px`,
+      width: "100vw",
+    };
+
+    Object.keys(styles).forEach((key) => {
+      document.body.style[key] = fixed ? styles[key] : "";
+    });
+
+    /**
+     * 背面固定解除時に元の位置にスクロールする
+     */
+    if (!fixed) window.scrollTo(0, scrollY * -1);
+  };
+  const modal = document.querySelector(".modal");
+  const overlay = document.querySelector(".overlay");
+  const openModalBtn = document.querySelector(".open-modal");
+  const closeModalBtn = document.querySelector(".btn-close");
+  // close modal function
+  const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+    backfaceFixed(false);
+  };
+  // close the modal when the close button and overlay is clicked
+  closeModalBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  // open modal function
+  const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+    backfaceFixed(true);
+  };
+  // open modal event
+  openModalBtn.addEventListener("click", openModal);
+</script>

@@ -1,0 +1,130 @@
+button, a {
+  &.btn {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: 0.5s all;
+
+    &:before,
+    &:after {
+      content: '';
+      @apply absolute;
+    }
+    &_row {
+      display: flex;
+    }
+
+    //Size
+    &--large {
+      @apply py-0 px-5 text-xl;
+      line-height: var(--DesktopButtonH);
+    }
+
+    &--medium {
+      @apply py-3.5 px-4;
+      font-size: 1rem;
+    }
+    &--submit {
+      @apply w-full justify-center items-center py-1;
+    }
+
+    &--primary {
+      @apply font-bold bg-primary text-white rounded-full;
+      transition: 0.5s all;
+      overflow: hidden;
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: -10%;
+        width: 0;
+        height: 120%;
+        bottom: 0;
+        opacity: 0;
+        transition: all .5s ease;
+        background-size: 400% 400%;
+      }
+
+      &:hover {
+        &:before {
+          border-radius: 50em;
+          width: 120%;
+          opacity: 1;
+          z-index: -1;
+          animation: gradient 5s ease infinite;
+        }
+      }
+
+
+    }
+
+    &--outline {
+      border: 2px solid;
+      @apply font-bold;
+    }
+
+    &--radius {
+      border-radius: 30em;
+
+      &-rt-lb {
+        border-radius: 0 1.5em 0 1.5em;
+      }
+    }
+
+    &.icon {
+      &_left, &_right {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        .btn_icon {
+          display: inline-block;
+        }
+        svg {
+          font-size: 120%;
+        }
+      }
+      &_right {
+        @apply pl-[1.85rem];
+        .btn_icon {
+          margin-left: 1rem;
+        }
+      }
+      &_left {
+        .btn_icon {
+          margin-right:1rem;
+        }
+      }
+    }
+  }
+}
+.shine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: skew(30deg) translateX(-120%);
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: shine 3s ease infinite;
+  z-index: 2;
+}
+@keyframes shine {
+  0% {
+    transform: skew(30deg) translateX(-180%);
+  }
+
+  30% {
+    transform: skew(30deg) translateX(180%);
+  }
+
+  100% {
+    transform: skew(30deg) translateX(180%);
+  }
+}

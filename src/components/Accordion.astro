@@ -1,0 +1,112 @@
+---
+const { acItems, cls } = Astro.props;
+---
+
+<div class={`js-accordion-wrap ${cls && cls}`}>
+  {
+    acItems.map((acItem, i) => (
+      <div class="js-accordion">
+        <div class="js-accordion__title">
+          <div class="js-accordion__title_text">{acItem.q}</div>
+          <div class="close">
+            <span />
+            <span />
+          </div>
+        </div>
+        <div class="js-accordion__content">
+          <p>{acItem.a}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
+<style lang="scss">
+  .js-accordion-wrap {
+    @apply mx-auto w-full max-w-[760px];
+    .js-accordion {
+      @apply bg-white;
+      .close {
+        @apply ml-4 w-[12px];
+        span {
+          transition: ease 0.5s;
+          @apply bg-secondary inline-block h-[12px] w-[2px];
+          &:nth-child(even) {
+            transform: rotate(90deg) translateY(6.7px);
+          }
+        }
+      }
+      &__title,
+      &__content {
+        @apply px-5;
+      }
+      &__title {
+        @apply border-even text-secondary flex cursor-pointer items-center justify-between border-b-[1px] border-solid py-5 font-medium leading-[1.65] tracking-wide;
+        .close {
+        }
+        &_text {
+          flex: 1;
+        }
+      }
+      &__content {
+        @apply max-h-0 overflow-hidden text-[.85rem];
+        transition: max-height ease 0.5s;
+        p {
+          @apply my-4;
+        }
+      }
+      &.active {
+        .js-accordion {
+          &__content {
+            @apply border-even border-b-[1px] border-solid;
+          }
+        }
+        .close {
+          span:nth-child(odd) {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+</style>
+<script>
+  // ============== toggle accordion =================//
+  let header = document.querySelectorAll(".js-accordion__title");
+
+  // ============= get all accoridon header =============//
+  header.forEach((header) => {
+    header.addEventListener("click", function (e) {
+      let accordion = document.querySelectorAll(".js-accordion");
+      let parentElm = header.parentElement;
+      let siblings = this.nextElementSibling;
+
+      // ============= remove accordion body height ==========//
+      accordion.forEach((element) => {
+        element.children[1].style.maxHeight = null;
+      });
+
+      // =========== toggle active class ==============//
+      parentElm.classList.toggle("active");
+      if (parentElm.classList.contains("active")) {
+        // ============== remove active class from all the accordions ===//
+        accordion.forEach((element) => {
+          element.classList.remove("active");
+        });
+        // ============== toggle active class where we clicked ========//
+
+        parentElm.classList.toggle("active");
+        // ============= set max height ============//
+        if (siblings.style.maxHeight) {
+          siblings.style.maxHeight = null;
+        } else {
+          siblings.style.maxHeight = siblings.scrollHeight + "px";
+        }
+      }
+    });
+  });
+
+  window.onload = function () {
+    header[0].click();
+  };
+</script>

@@ -1,0 +1,146 @@
+---
+import { AlertIcon } from "./Icons.jsx";
+import { Catch_01, Catch_02, Catch_03 } from "./parts/FvCatch.jsx";
+import FvImg01 from "./parts/Kv01/FvImg_01";
+import FvImg02 from "./parts/Kv02/FvImg_02";
+import { BgDefault } from "./parts/FvBg.jsx";
+import URLParameterImageGuard from "./parts/URLParameterImageGuard/URLParameterImageGuard.jsx";
+const list_catch = ["脱税", "所得隠し", "租税回避"];
+const subtitle = "<strong>税務調査</strong>の対応・交渉";
+let title = "";
+
+const ACCEPTED_PARAMETER_VALUES = ["v01", "v02", "v03"];
+---
+
+<section id="fv" class="section-fv relative overflow-hidden">
+  <div class="fv__main relative">
+    <figure class="fv__bhd_bg">
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v01"}
+        shouldDisplayImageIfNoValidParameter={true}
+        client:load
+      ><BgDefault /></URLParameterImageGuard>
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v02"}
+        client:load
+        ><BgDefault />
+      </URLParameterImageGuard>
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v03"}
+        client:load
+        ><BgDefault imgsrc="FV03" />
+      </URLParameterImageGuard>
+
+    </figure>
+    <span class="bg_blur bg_blur_01"></span>
+    <span class="bg_blur bg_blur_02"></span>
+    <span class="bg_blur bg_blur_03"></span>
+    <div class="fv_container container flex flex-row flex-wrap">
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v01"}
+        shouldDisplayImageIfNoValidParameter={true}
+        client:load
+      >
+        <Catch_01 client:load />
+      </URLParameterImageGuard>
+
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v02"}
+        client:load
+        ><Catch_02 client:load />
+      </URLParameterImageGuard>
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v03"}
+        client:load
+        ><Catch_03 client:load />
+      </URLParameterImageGuard>
+
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v01"}
+        shouldDisplayImageIfNoValidParameter={true}
+        client:load
+      >
+        <FvImg01 />
+      </URLParameterImageGuard>
+      <URLParameterImageGuard
+        acceptedValues={ACCEPTED_PARAMETER_VALUES}
+        parameterName={"v02"}
+        client:load
+      >
+        <FvImg02 />
+      </URLParameterImageGuard>
+    </div>
+  </div>
+  <div class="fv__notion">
+    <div class="inner flex items-center">
+      <div class="fv__notion-icon">
+        <AlertIcon />
+      </div>
+      <div class="fv__notion-text">
+        <span class="underline"
+          >重加算税を回避する目的での安易な修正は絶対に行わないでください。</span
+        >
+        <br
+          class="hidden md:block"
+        />税務署の心証を悪くし、交渉の土台が失われ結果として損をします。
+      </div>
+    </div>
+  </div>
+</section>
+<style lang="scss">
+  .bg_blur {
+    @apply absolute left-0 top-0 block h-full w-full backdrop-blur-sm lg:w-[55%];
+    &_01 {
+      background: linear-gradient(
+        51deg,
+        rgba(18, 89, 105, 0.3) 0%,
+        rgba(23, 105, 131, 0.3) 56%,
+        rgba(12, 148, 177, 0.3) 100%
+      );
+    }
+    &_02 {
+      @apply bg-[#1F93AC]/50;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 40vw) 100%, 0 100%);
+      @media only screen and (max-width: 640px) {
+        clip-path: polygon(0 0, 100% 0, calc(100% - 120vw) 100%, 0 100%);
+      }
+    }
+    &_03 {
+      @apply bg-[#0E658A]/50;
+      clip-path: polygon(0 32%, 100% 80%, 100% 100%, 0 100%);
+      @media only screen and (max-width: 640px) {
+        clip-path: polygon(0 10%, 100% 30%, 100% 100%, 0 100%);
+      }
+    }
+  }
+
+  .btn_row {
+    @apply text-center lg:text-left;
+  }
+  .container {
+    @apply md:max-w-full xl:max-w-screen-xl;
+    &.fv_container {
+      @apply lg:min-h-[768px] lg:max-w-[1280px];
+    }
+  }
+</style>
+<script>
+  let url = new URL(window.location.href);
+  let params = url.searchParams;
+  console.log(params.get("kv"));
+  let kvParam;
+  const secFv = document.getElementById("fv");
+  kvParam = params.get("kv");
+  if (kvParam) {
+    secFv.classList.add("kv__" + kvParam);
+  } else {
+    secFv.classList.add("kv__v01");
+  }
+</script>

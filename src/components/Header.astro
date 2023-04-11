@@ -1,0 +1,237 @@
+---
+import ContactLink from "./ContactLink.astro";
+import { IconMap, Logo } from "./Icons.jsx";
+const pageNavs = [
+  {
+    name: "3つのメリット",
+    link: "#merit",
+  },
+  {
+    name: "対応実績",
+    link: "#jisseki",
+  },
+  {
+    name: "税務調査対応の流れ",
+    link: "#flow",
+  },
+  {
+    name: "よくあるご質問",
+    link: "#faq",
+  },
+];
+---
+
+<header class="header">
+  <nav class="nav_main container-fit">
+    <button id="burger-menu" class="nav_burger"
+      ><span></span><span></span>
+    </button>
+    <div class="nav_body">
+      <ul class="nav_glink">
+        {
+          pageNavs.map((pageNav) => (
+            <li class="nav_glink__item">
+              <a class="nav_glink__link" href={pageNav.link}>
+                {pageNav.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="nav_clink">
+        <li class="nav_clink__item"></li>
+      </ul>
+    </div>
+    <h1 class="logo"><span class="svg_wrapper svg_logo"><Logo /></span></h1>
+    <div id="fixedcta" class="nav_right">
+      <div class="catchs">
+        <div>初回限定着手金無料</div>
+        <div class="icon__bf"><IconMap size={5} />全国対応</div>
+      </div>
+      <ul class="contact_act">
+        <ContactLink caption="電話で無料相談" openhour={true} isnum={true} />
+        <ContactLink title="相談フォーム" caption="メールで無料相談" />
+      </ul>
+    </div>
+  </nav>
+</header>
+<style lang="scss">
+  .header {
+    @apply absolute top-0 left-0 z-[999] w-full md:fixed md:drop-shadow-xl;
+    &.opened {
+      @apply fixed h-full w-full;
+    }
+  }
+  .nav {
+    &_main {
+      @apply relative z-10 flex h-navm flex-row-reverse flex-wrap items-center justify-between md:bg-white px-5 py-3.5 md:h-auto md:flex-row md:py-0 md:pl-5 md:pr-0;
+    }
+    &_burger {
+      @apply relative z-[2] h-[14px] w-[30px] before:content-[''] md:hidden;
+      &:before {
+        @apply absolute left-[50%] top-[50%] h-[40px] w-[40px];
+        transform: translate(-50%, -50%);
+      }
+      span {
+        @apply absolute left-0 h-[1px] w-full bg-white;
+        transition: transform 0.4s ease-in-out, top 0.4s ease-in-out,
+          bottom 0.4s ease-in-out;
+        &:nth-child(1) {
+          top: 0;
+        }
+        &:nth-child(2) {
+          bottom: 0;
+        }
+      }
+      &.close {
+        span {
+          @apply bg-primary;
+        }
+        span:nth-child(1) {
+          transform: rotate(45deg) translate(0, -50%);
+          top: 50%;
+        }
+        span:nth-child(2) {
+          transform: rotate(-45deg) translate(0, 50%);
+          bottom: 50%;
+        }
+      }
+    }
+    &_body {
+      @apply invisible absolute left-0 top-0 right-0 bottom-0 -z-[1] flex h-[100vh] flex-col items-center justify-center overflow-hidden bg-white pt-navm pb-[100px] text-secondary opacity-0 md:-z-40;
+      transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+      &.active {
+        @apply visible z-[1] pb-[100px] opacity-100;
+      }
+      > ul {
+        @apply flex w-full flex-col items-center;
+      }
+    }
+    &_glink {
+      &__item {
+        &:nth-of-type(n + 2) {
+          @apply mt-4 md:mt-0;
+        }
+      }
+      &__link {
+        @apply inline-block w-full py-2 text-xl font-bold tracking-wide md:w-auto;
+      }
+    }
+
+  }
+  .logo {
+    @apply relative z-[2] ml-0 flex w-[5.15rem] max-w-[120px] items-center md:w-[14%] lg:w-[120px];
+    > a {
+      @apply relative block w-full;
+    }
+  }
+  .catchs {
+    @apply relative z-10 grid bg-main02 py-1 text-[.875rem] font-bold tracking-wider text-pincolor after:content-[''] md:grid-cols-2 md:bg-transparent md:py-0 md:text-[1.44444vw] md:text-secondary md:after:content-none lg:text-[.875rem];
+    &:after {
+      @apply absolute top-0 -left-[46px] h-full w-[120%] opacity-50;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        #0c94b1 2px,
+        #0c94b1 4px
+      );
+    }
+    &:after {
+      z-index: -2;
+      animation: stripe-anime 0.6s linear infinite;
+    }
+
+    > div {
+      @apply flex items-center justify-center;
+      &:last-child {
+        @apply hidden md:flex;
+      }
+    }
+  }
+  .contact_act {
+    @apply grid grid-cols-2;
+  }
+  .nav_right {
+    @apply fixed left-0 bottom-0 z-20 grid w-full md:relative md:flex md:w-auto;
+    transition: all 1s;
+  }
+  @keyframes stripe-anime {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(46px);
+    }
+  }
+</style>
+<script>
+  const html = document.querySelector("html");
+  const headerHeight = 60;
+  const burger = document.getElementById("burger-menu");
+  const burgerNav = document.querySelector(".nav_body");
+  const Nav = document.querySelector(".nav_glink__link");
+  const Header = document.querySelector(".header");
+  const bHeight = document.body.clientHeight;
+  const wHeight = window.innerHeight;
+  let bodyHeight;
+  let scrollpos;
+  function menuClose() {
+    html.classList.remove("is-menuOpen");
+    window.scrollTo(0, scrollpos);
+    Header.closest(".header").classList.remove("opened");
+    burgerNav.classList.remove("active");
+    burger.classList.remove("close");
+  }
+  burger.addEventListener("click", function () {
+    this.classList.toggle("close");
+    this.closest(".header").classList.toggle("opened");
+    burgerNav.classList.toggle("active");
+    if (burger.classList.contains("close")) {
+      scrollpos = window.pageYOffset;
+      html.classList.add("is-menuOpen");
+      document.body.style.top = scrollpos * -1 + "px";
+      bodyHeight = window.innerHeight;
+    } else {
+      html.classList.remove("is-menuOpen");
+      window.scrollTo(0, scrollpos);
+    }
+  });
+  const CLICK_EVENT = "ontouchstart" in window ? "touchstart" : "click";
+  window.addEventListener(CLICK_EVENT, (e) => {
+    if (e.target === Nav) {
+      menuClose();
+    }
+  });
+  document.querySelectorAll('.nav_glink__item a[href^="#"]').forEach((e, i) => {
+    e.addEventListener("click", menuClose);
+  });
+  const fixedButton = document.getElementById('fixedcta');
+  let fixedButtonH;
+  const sectionForm = document.querySelector(".section__lpform");
+  const sectionFormOptions = {};
+  const sectionFormObserver = new IntersectionObserver
+  (function(
+    entries,
+    sectionFormObserver
+  ) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        fixedButton.style.bottom = "-"+fixedButtonH+"px";
+      } else {
+        fixedButton.style.bottom = "0px";
+      }
+    });
+  },  sectionFormOptions);
+  var onResizing = function(event) {
+    if (window.screen.width < 768) {
+      fixedButtonH = fixedButton.clientHeight;
+      sectionFormObserver.observe(sectionForm);
+    } else {
+      fixedButton.style.bottom = "0px";
+    }
+  };
+
+  window.onresize = onResizing;
+  window.onload = onResizing;
+</script>

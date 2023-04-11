@@ -1,0 +1,62 @@
+---
+import SectionWrapper from "./SectionWrapper.astro";
+import Heading from "./parts/Heading.astro";
+import FeatureRow from "./FeatureRow.astro";
+import { Btn } from "./parts/Button";
+const { title, subtitle, ...attrs } = Astro.props;
+---
+
+<SectionWrapper id="merit" sclass="merit" bg="bg-white">
+  <Heading
+    subtitle={subtitle}
+    size="large"
+    align="text-center"
+    classname="mb-8 md:mb-24 text-secondary"
+    ><Fragment set:html={title} />
+  </Heading>
+  <FeatureRow
+    title="<strong>国税庁OB・元税務署長</strong>の<br>経験豊富なノウハウでの支援"
+    img="images/feature_01.jpg"
+    prefix="merit"
+  >
+    <p>税務調査対応には<strong>専門家の力が必要不可欠</strong>となります。</p>
+    <p>
+      当社が連携している<strong>国税庁OB・税務署長など10名が対応</strong>いたします。
+    </p>
+    <p>
+      元取り締まる側の視点からの<strong>正確なアドバイス</strong>と<strong>豊富な立会実績</strong>による納税者を支援は当機関ならではの強みです。
+    </p>
+  </FeatureRow>
+  <FeatureRow
+    reverse={true}
+    title="<strong>コネクションを活かした交渉力</strong>で<br class='hidden-md'>追徴課税を減額、逮捕リスク回避"
+    img="images/feature_02.jpg"
+    prefix="merit"
+  >
+    <p>
+      国税庁OBならではのコネクションを活かした交渉力と税務調査に対する正しい知識と立会実績により、
+      <strong>一般の税理士が対応できないような専門的な交渉ができる</strong
+      >ので、減額をされた事例が多数あります。
+    </p>
+    <Btn
+      title="実績例をチェック"
+      buttonIcon="right"
+      buttonStyle="outline"
+      buttonRadius="btn--radius"
+      buttonClass="mt-9 tracking-widest text-secondary md:min-w-[280px] min-w-0"
+    />
+  </FeatureRow>
+  <FeatureRow
+    title="顧問契約 <strong>300社以上</strong><br>安心の信頼と実績"
+    img="images/feature_03.jpg"
+    prefix="merit"
+  >
+    <p>税理士として<strong>顧問契約を交わしている会社は300社以上</strong>。</p>
+    <p>
+      売上1,000億の上場企業をはじめ幅広い会社の対応を行っており、<strong
+        >税務調査対応における信頼と実績</strong
+      >があります。
+    </p>
+    <p>売上規模、業種、都道府県は関係なくご依頼を承っております。</p>
+  </FeatureRow>
+</SectionWrapper>

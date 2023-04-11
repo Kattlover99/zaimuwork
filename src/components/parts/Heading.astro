@@ -1,0 +1,37 @@
+---
+export interface Props {
+  size?: string;
+  classname?: string;
+  subtitle?: string;
+  subcname?: string;
+  align?: string;
+  font?: string;
+}
+const { size, classname, subtitle, subcname, align, font, ...attrs } =
+  Astro.props;
+---
+
+{
+  subtitle && (
+    <>
+      <div class={`heading_sub ${align} ${subcname} inview fade_in`}>
+        <Fragment set:html={subtitle} />
+      </div>
+    </>
+  )
+}
+<h2
+  class={`heading_main ${
+    font ? font : "font-serif font-normal tracking-wider "
+  } ${align && align} ${
+    size ? `heading_main__${size}` : "heading_main__medium"
+  } ${classname && classname}`}
+>
+  <slot />
+</h2>
+<style lang="scss">
+  .heading_main {
+    width: 100%;
+    max-width: 100%;
+  }
+</style>

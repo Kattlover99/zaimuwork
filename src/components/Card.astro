@@ -1,0 +1,113 @@
+---
+import CheckCircle from "astro-heroicons/solid/CheckCircle.astro";
+export interface Props {
+  title?: string;
+  label?: string;
+  icon?: boolean;
+  circle?: boolean;
+}
+
+const { title, label, icon = false, circle = false } = Astro.props;
+---
+
+<li class={title ? `case-card-div` : `case-card-div single-card`}>
+  {
+    circle && (
+      <div class="case-sealed">
+        <img src="images/circle_success.png" alt="救済成功！" />
+      </div>
+    )
+  }
+  <div class={title ? `case-card` : `case-card single-card`}>
+    <div class="case-inner">
+      {label && <span class="case-label">{label}</span>}
+      <div class="case-is">
+        {icon && <CheckCircle class="side_icon" />}
+        <div class="case-title">
+          {title && <Fragment set:html={title} />}
+          {!title && <slot />}
+        </div>
+      </div>
+      {
+        title && (
+          <div class="case-result">
+            <slot />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</li>
+<style lang="scss">
+  .side_icon {
+    @apply mr-3 h-6 w-6 text-secondary sm:h-7 sm:w-7 lg:mr-4;
+  }
+  .case {
+    &-sealed {
+      @apply absolute top-0 right-[1rem] z-10 w-[70px] md:w-[83px];
+    }
+    &-label {
+      @apply inline-block bg-secondary px-2 align-top font-sans text-sm font-semibold italic text-white;
+    }
+    &-result {
+      @apply relative pt-3.5 text-[1.05rem] font-bold leading-[1.45] tracking-wider text-primary lg:text-[1.25rem];
+    }
+    &-title {
+      @apply font-midashi text-[4vw] font-bold tracking-wide xxs:text-base;
+    }
+    &-card {
+      @apply flex rounded-lg bg-white px-6 py-8 drop-shadow-xl h-[100%];
+      list-style: none;
+      position: relative;
+
+      &-div {
+        list-style: none;
+        + li {
+          @apply mt-4 md:mt-0;
+        }
+        &:not(.single-card) {
+          @apply relative pt-[15px] md:pt-[28px];
+        }
+        &.single-card {
+          .case-card {
+            @apply px-4 py-4 md:px-6;
+            .case-is {
+              @apply flex items-center justify-center;
+            }
+          }
+        }
+        .case-card {
+          &:not(.single-card) {
+            .case {
+              &-inner,
+              &-is,
+              &-result {
+                &:before {
+                  @apply bg-even;
+                }
+              }
+              &-inner {
+                @apply relative w-full;
+                &:before {
+                  content: "";
+                  @apply absolute left-0 top-0 h-[85%] w-[1px];
+                }
+              }
+              &-is,
+              &-result {
+                @apply pl-6;
+              }
+              &-is {
+                @apply relative pb-3.5 pt-2.5;
+                &:before {
+                  content: "";
+                  @apply absolute bottom-0 left-0 h-[1px] w-full;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

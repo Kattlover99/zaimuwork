@@ -1,0 +1,312 @@
+---
+import Accordion from "../components/Accordion.astro";
+import BasicSection from "../components/BasicSection.astro";
+import CardPanel from "../components/CardPanel.astro";
+import ContactForm from "../components/ContactForm.jsx";
+import Cta from "../components/Cta.astro";
+import FirstView from "../components/FirstView.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Jiseki from "../components/Jiseki.astro";
+import Merit from "../components/Merit.astro";
+import Table from "../components/parts/Table.astro";
+import Risk from "../components/Risk.astro";
+import Layout from "../layouts/Layout.astro";
+const ImgTouchus = [
+  {
+    src: "images/askus.jpg",
+    alt: "まずはご相談ください",
+  },
+];
+const ImgCompany = [
+  {
+    src: "images/company.jpg",
+    alt: "オフィス",
+  },
+];
+const TableArray = [
+  { th: "会社名", td: "株式会社Y&S" },
+  {
+    th: "住所",
+    td: "〒105-0013<br/>東京都港区浜松町2丁目2-15<br/>浜松町ダイヤハイツ2F",
+  },
+  { th: "電話番号", td: "03-6627-0319" },
+  { th: "提携税理士法人", td: "3社" },
+  { th: "提携弁護士法人", td: "引田法律事務所" },
+  {
+    th: "提携国税庁OB、<br>元税務署長",
+    td: "中田晃、小畠安雄、山形富夫、内田弘之、青木公治、井手政紀、岩崎和泉",
+  },
+];
+const CompanyLabels = ["全国対応", "国税庁OB在籍"];
+const FaqItems = [
+  {
+    q: "税務署から電話がありました。どのタイミングで相談したほうがいいでしょうか？",
+    a: "今すぐ相談してください。以前、一人で税務調査を受けた方がいます。税務調査の結果に納得できず、当事務所に後からご相談いただきましたが、最初から相談してもらえればもっと有利な交渉ができたのに…、という方を何名もみてきました。悩んだら、今すぐ相談ください。",
+  },
+  {
+    q: "顧問税理士がいるのですが、税務調査の途中に依頼することは可能でしょうか？",
+    a: "可能です。顧問税理士に税務調査のことを質問しても、「税務署とのコネクションがない」「はっきりした回答がなく不安だ。」「経験が少なそうで不安だ。」というときはお気軽にご相談ください。",
+  },
+  {
+    q: "税務署から多額の納税を請求されています。このような状態から依頼することは可能でしょうか？",
+    a: "可能です。税務署の請求根拠を確認し、納得できない点があればしっかりと説明し、税金を払いすぎることがないよう交渉します。税務署の主張が正しい場合は、依頼いただいても税金を減らすことはできません。今からでも何ができそうかは、初回ご相談時に説明させていただきます。",
+  },
+  {
+    q: "税理士によって税務調査の結果は変わりますか？",
+    a: "変わります。知識が少ない税理士だと、調査官が間違ったことを言っていても気付かなかったり、反論ができません。経験が少ない税理士だと、調査官がどこを狙ってくるか？どんな準備をしておけばよいかわかりません。税務調査を税理士へ依頼するときは、どんな調査に対応したことがあるか経験値で選ぶことをお勧めします。",
+  },
+  {
+    q: "調査初日はどのようなことをするのですか？",
+    a: "初日は、通常10時に始まり、夕方4時に終わります。お昼休憩として12時～13時は休憩時間となり、実質5時間です。午前中は、事業の概要などのヒアリングで終わります。仕事内容や、取引先の確認、業界動向や社長の経歴などを聞かれます。このときの説明と、決算書の内容が違っていると、何か隠しているのではないか？と疑われてしまうので、適当な説明はせず、事実をしっかりと伝えてください。お昼休憩をはさみ、午後になると各種資料のチェックが始まります。特に売上や仕入、在庫の計上が適切かチェックされます。このとき、一番発見されやすいのが現金売上の申告漏れです。領収書は作ってあったけど、売上の経理処理がしてなかった場合や、領収書が何冊もあり、控えが残っていなかったりすると厳しくチェックされることになります。",
+  },
+  {
+    q: "調査最終日はどのようなことをするのですか？",
+    a: "調査は通常、2日かけて行われます。2日目は、1日目に調査官に質問され、その場では回答できなかったものを調べた結果を説明することから始まり、主に経費のチェックが行われます。交際費の中に、プライベートな出費は混ざっていないか？とか本来固定資産として計上すべきものが経費として処理されていないか？など、金額の大きな取引を中心にチェックされます。3時くらいになると、2日間の調査結果がまとめられ、最後の質問と修正が必要な箇所など調査官が発見したことの説明があります。何もなければ、調査終了です。",
+  },
+  {
+    q: "追加の納税額には罰金も加わるのですか？",
+    a: "罰金が加わります。過少申告加算税・延滞税がかかります。悪質な過少申告と判定されると、この他に重加算税という税金が加わるとともに、調査期間も7年に延長されることがあります。",
+  },
+  {
+    q: "家族や従業員にも質問されますか？",
+    a: "質問されます。過去に同席した調査では、社長の奥様が経理を担当しているという名目で給料を払っていましたが、調査官が質問した結果、経理の知識が全くないことがわかり、家族への給料を否認されたという事例もあります。このように、申告内容の確認をするため、家族や従業員に質問されることがあります。",
+  },
+  {
+    q: "税務調査が終わったら、税金は一括で払うのですか？払えない場合、どうなりますか？",
+    a: "税金が一括で払えないときは、分割で支払うことになります。収入から、毎月いくらくらいなら払えそうか計算根拠を示しつつ、税務署と支払スケジュールを交渉します。",
+  },
+  {
+    q: "過去の領収書、請求書がなく通帳記帳もしていないのですが、大丈夫でしょうか？",
+    a: "銀行の入出金データやカード明細など可能な限り再発行して入手いただきます。 また取引先などに依頼して領収書など可能な限り入手して申告をします。 まずは、あなたの状況を伺い、何から始めたらいいかお伝えさせていただきます。",
+  },
+  {
+    q: "無申告はみつかりますか？（税務調査はきますか？）",
+    a: "最短で当日に緊急対応することも可能です。ただ、お客様の資料の保存状況や量、当社の抱える仕事量により変動します。 まずは、無料相談の際、お客様の状況を教えて下さい。何日で対応可能か、目安をお伝えします。",
+  },
+  {
+    q: "税務調査も全国対応してもらえますか？",
+    a: "はい。対応可能です。Zoomなどオンラインでの打ち合わせができます。",
+  },
+];
+---
+
+<Layout>
+  <Header />
+  <main>
+    <FirstView />
+    <Cta
+      title="手遅れになる前に<br class='show-lg'><strong><span class='text-split above-dot'>専門家</span>へ相談</strong>を"
+      url="images/CTA_side_01.jpg"
+      hasdot={true}
+      ><p class="inview slide_in">
+        当事務所では<strong>国税庁</strong>、<strong>税務署長の元OB</strong
+        >を筆頭に、<br class="hidden-sm" />
+        税務調査に対する<strong>正しい知識と立会実績</strong
+        >であなたをサポートいたします。
+      </p>
+    </Cta>
+    <Risk title="発生するリスクは..." subtitle="税務調査を専門家に任せないと" />
+    <Merit
+      title="<strong class='text-split inview flip_letters'>3つのメリット</strong>"
+      subtitle="税務調査トラブル<br class='show-xs'>対策機構に相談する"
+    />
+    <Jiseki />
+    <BasicSection
+      id="touchus"
+      title="<span class='text-split inview flip_letters'>まずはご相談ください</span>"
+      subtitle="精神的ストレスを抱える前に"
+      imgAry={ImgTouchus}
+      anim="scale-image"
+    >
+      <p>
+        税務署から税務調査の電話があると、多くの方が<br
+          class="hidden-lg"
+        /><strong>不安・ストレスを抱えてしまい、仕事が手につかない状態に</strong
+        >なります。
+      </p><p>
+        当事務所へご依頼いただくと、税務署からの電話は税理士事務所へかかってくるようになり、税務調査のプロがあなたと税務署の間に入ることで、<strong
+          >精神的ストレスが大幅に減ります</strong
+        >。
+      </p>
+    </BasicSection>
+    <Cta
+      title="OBコネクション<br class='show-lg'>による<strong><span class='text-split above-dot'>交渉力</span></strong>"
+      url="images/CTA_side_02.jpg"
+      hasdot={true}
+      ><p class="inview slide_in">
+        当事務所では<strong>国税庁</strong>、<strong>税務署長の元OB</strong
+        >を筆頭に、<br class="hidden-sm" />
+        税務調査に対する<strong>正しい知識と立会実績</strong
+        >であなたをサポートいたします。
+      </p>
+    </Cta>
+    <BasicSection
+      id="notion"
+      title="<span class='fade_up inview'><strong>罰則が強化</strong>されました</span>"
+      subtitle="2011年の税制改正で"
+      image={false}
+      align="text-center"
+      bg="bg-secondary dark"
+      text="text-white"
+    >
+      <div class="boxed bright-box inview outline">
+        <p>
+          脱税犯（わざと脱税するために無申告状態を続け見つかった場合）には、<strong
+            >５年以下の懲役または５００万円以下の罰金</strong
+          >または両方のペナルティが科せられます。
+        </p><p>
+          無申告（故意に税金を免れる意思がなく無申告が見つかった場合）には、<strong
+            >１年以下の懲役または５０万円以下の罰金</strong
+          >を科すと改正されました。
+        </p>
+      </div>
+    </BasicSection>
+    <BasicSection
+      id="flow"
+      title="<span class='inview'><span class='inview staggered-flip-in'>税務調査対応の流れ</span></span>"
+      titleClass="lined"
+      image={false}
+    >
+      <div
+        class="reveal-stagger inview grid grid-cols-jcard-md justify-center gap-4 md:gap-6 lg:grid-cols-4 xl:gap-8"
+      >
+        <CardPanel title="ご相談" img="images/flow_01.jpg">
+          お電話か問い合わせフォームの無料相談でお客様の状況をお伝えください。
+        </CardPanel>
+        <CardPanel countnum={2} title="ご契約" img="images/mini_feature_01.jpg">
+          ご依頼が確定し、本契約となります。初回の場合は<span
+            class="font-bold underline underline-offset-2">着手金無料</span
+          >です。
+        </CardPanel>
+        <CardPanel
+          countnum={3}
+          title="お打ち合わせ"
+          img="images/mini_feature_01.jpg"
+        >
+          対面、zoom等のオンラインにても対応しております。
+        </CardPanel>
+        <CardPanel countnum={4} title="交渉" img="images/mini_feature_01.jpg">
+          国税庁元OBのコネクションと交渉力で追加徴税の減額、逮捕回避に努めます。
+        </CardPanel>
+      </div>
+    </BasicSection>
+    <BasicSection
+      id="message"
+      title="<span class='text-split inview flip_letters'>メッセージ</span>"
+      subtitle="現在お悩みを抱える皆様へ"
+      bg="bg-light"
+      align="text-center"
+      image={false}
+      bgimg="images/bg_message.jpg"
+    >
+      <h5
+        class="quote mb-12 flex flex-col justify-center overflow-hidden text-center font-serif md:flex-row"
+      >
+        <span class="fade_up inview">
+          <span class="quote_st"><img src="images/quote.png" alt="" /></span>
+          税務調査は正しく対応すれば<br class="show-sm" />問題が大きく<br
+            class="hidden-sm"
+          />なる前に<br class="show-sm" /><strong>解決できる問題</strong
+          >です。<br />問題を恐れずに一刻も<br
+            class="show-sm"
+          />早くご相談ください。
+        </span>
+      </h5>
+      <div class="inview fade_in">
+        <p>
+          どうか悩みをそのままにしてないでください。そのまま<strong
+            >問題を放置してしまうと逮捕されてしまう可能性が高い</strong
+          >です。
+          いくら顧問の税理士を付けているからと言えども、調査を受けると「それじゃ理由にならない」と調査官に一蹴されてしまうのが現実です。なぜなら、<strong
+            >ほとんどの税理士は税金の知識はあっても、税務調査に対する正しい知識と立会実績が乏しかったり、交渉をしたくても国税庁・国税局・税務署との交渉のコネクションがない</strong
+          >からです。
+        </p><p>
+          税務調査は普段のルーティンの税務対応ではなく、会社にとって<strong
+            >専門家が対応すべき大きなトラブル</strong
+          >です。風邪ではなく大きな病気を発症したら街医者ではなく専門医に診察してもらう様に、法律の大きなトラブルが発生したら専門分野の弁護士に依頼するのが大切です。同様に、税務調査というトラブルには<strong
+            >税務調査専門の税理士を挟んで対応・交渉をすることが大切</strong
+          >です。
+        </p>
+        <p>
+          ご依頼頂いた際に「なんでこんな状況になるまで放置していたのですか？」など<strong
+            >責めるような聞かれたくない質問は一切しません</strong
+          >。起きてしまった問題を解決するためにどのような方法があるのかサポートさせていただきます。
+        </p>
+      </div>
+    </BasicSection>
+    <BasicSection
+      id="company"
+      title="<span class='text-split inview flip_letters'>会社概要</span>"
+      imgAry={ImgCompany}
+      labels={CompanyLabels}
+      caption="<strong>OBコネクション</strong>による<strong>交渉力</strong>で追徴課税に差が出ます"
+    >
+      <Table TableArray={TableArray} cls="table-minmal inview fade_in" />
+    </BasicSection>
+    <Cta
+      title="問題が大きく<span class='text-split above-dot'>なる前に</span><br class='show-md'><strong>ご相談</strong>を"
+      url="images/CTA_side_01.jpg"
+      hasdot={true}
+      ><p class="inview slide_in">
+        当事務所では<strong>国税庁</strong>、<strong>税務署長の元OB</strong
+        >を筆頭に、<br class="hidden-sm" />
+        税務調査に対する<strong>正しい知識と立会実績</strong
+        >であなたをサポートいたします。
+      </p>
+    </Cta>
+    <BasicSection
+      id="faq"
+      title="<span class='text-split inview flip_letters'>よくあるご質問</span>"
+      bg="bg-even"
+      align="text-center"
+      image={false}
+    >
+      <Accordion acItems={FaqItems} cls="inview fade_in" />
+    </BasicSection>
+    <Cta
+      title="まずはあなたの事情を<br class='show-lg'><strong>お聞かせください</strong>"
+      url="images/CTA_side_02.jpg"
+      ><p class="inview slide_in">
+        当事務所では<strong>国税庁</strong>、<strong>税務署長の元OB</strong
+        >を筆頭に、<br class="hidden-sm" />
+        税務調査に対する<strong>正しい知識と立会実績</strong
+        >であなたをサポートいたします。
+      </p>
+    </Cta>
+    <BasicSection
+      id="lpform"
+      title="<span class='text-split inview flip_letters'>無料相談</span>"
+      bg="bg-light"
+      align="text-center"
+      image={false}
+    >
+      <div class="container-small">
+        <p
+          class="line-split inview slide_in mb-9 text-center text-xs font-medium text-primary md:text-base"
+        >
+          ※安易な修正はご自身で絶対に行わず、まずはご相談ください。税務署の心証を悪くし、交渉の土台が失われ結果として損をします。
+        </p>
+      </div>
+      <div class="container-md inview fade_in">
+        <ContactForm client:load />
+      </div>
+    </BasicSection>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .boxed {
+    @apply mx-auto py-6 px-4 sm:py-8 sm:px-6 md:w-[80%] md:max-w-[820px];
+  }
+  .container-md {
+    @apply mx-auto max-w-[768px];
+  }
+  .quote > span {
+    @apply relative pt-14 md:pt-0;
+  }
+  .quote_st {
+    @apply absolute left-[50%] top-0 inline-block w-[38px] -translate-x-[50%] md:-left-[55px] md:w-[45px] md:translate-x-0;
+  }
+</style>

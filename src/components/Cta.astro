@@ -1,0 +1,125 @@
+---
+import SectionWrapper from "./SectionWrapper.astro";
+// import { Link } from 'astro-link';
+import ContactLink from "./ContactLink.astro";
+import Heading from "./parts/Heading.astro";
+export interface Props {
+  title: string;
+  url?: string;
+  hasdot?: boolean;
+}
+const { title, url, hasdot = false, ...attrs } = Astro.props;
+---
+
+<SectionWrapper sclass="cta" bg="bg-odd">
+  <div
+    class="grid items-center gap-2 lg:grid-cols-12 lg:justify-between lg:gap-x-12 xl:gap-x-14"
+  >
+    <div class="px-container col-start-1 lg:col-span-5">
+      <figure
+        class="cta-img inview reveal-image aspect-square w-full overflow-hidden rounded-[4rem]"
+      >
+        <img src={url} alt="image" class="w-full" />
+      </figure>
+    </div>
+    <div class="content cta-content px-container lg:col-span-7 lg:col-start-6">
+      <div class="heading__outer inview">
+        <Heading
+          align="text-left"
+          classname={`mb-6 md:mb-7 text-even ${hasdot && "has_dot"}`}
+          ><Fragment set:html={title} />
+        </Heading>
+        <div class="heading__inner">
+          <Heading
+            align="text-left"
+            classname={`mb-6 md:mb-7 text-secondary ${hasdot && "has_dot"}`}
+            ><Fragment set:html={title} />
+          </Heading>
+        </div>
+      </div>
+      <slot />
+      <div class="cta-box relative mt-12 pt-3">
+        <div class="cta-labels">
+          <div class="flex justify-center">
+            <span class="label-cutted label-cutted-left"
+              ><span class="label bg-secondary">初回限定</span>
+            </span>
+            <span class="label-cutted label-cutted-right"
+              ><span class="label bg-primary">着手金無料</span>
+            </span>
+          </div>
+        </div>
+        <div class="card cta-card">
+          <ul class="ctc__links">
+            <ContactLink
+              caption="お電話で"
+              openhour={true}
+              isnum={true}
+              cta={true}
+              classname="cta-view"
+            />
+            <ContactLink
+              caption="メールで"
+              title="相談フォーム"
+              cta={true}
+              classname="cta-view"
+            />
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</SectionWrapper>
+<style lang="scss">
+  .label {
+    &-cutted {
+      @apply inline-block;
+      .label {
+        @apply inline-block px-2.5 text-[1rem] font-bold leading-ribbon tracking-wider text-white xxxs:px-3.5 xxxs:text-[1.15rem] md:px-6 md:text-[1.125rem];
+      }
+      &-left,
+      &-right {
+        @apply flex;
+        &:before,
+        &:after {
+          @apply block border-ribbon border-solid border-transparent;
+        }
+      }
+      &-left {
+        &:before {
+          content: "";
+          @apply border-r-secondary;
+        }
+      }
+      &-right {
+        &:after {
+          content: "";
+          @apply border-l-primary;
+        }
+      }
+    }
+  }
+  .cta {
+    &-content {
+      @apply mx-auto mt-10 lg:mt-0 max-w-full sm:max-w-full md:max-w-[70%] lg:max-w-full;
+    }
+    &-labels {
+      @apply absolute top-0 left-0 z-10 w-full;
+    }
+    &-img {
+      @apply drop-shadow-lg;
+      &.aspect-square {
+        @apply mx-auto max-w-[420px];
+      }
+    }
+    &-card {
+      @apply rounded-2xl bg-white py-10 px-4 drop-shadow-xl;
+    }
+    // &-content {
+    //   @apply max-w-[420px] md:max-w-full mx-auto;
+    // }
+    &-by {
+      @apply font-semibold tracking-wider text-secondary opacity-60;
+    }
+  }
+</style>

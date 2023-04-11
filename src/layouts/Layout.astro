@@ -1,0 +1,195 @@
+---
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/scss/animation.scss";
+import "../styles/scss/global.scss";
+export interface Props {
+  title?: string;
+}
+
+const { title = "税務調査トラブル対策機構" } = Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- Google Tag Manager -->
+    <script type="text/partytown">
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MDGH2VT");
+    </script>
+    <!-- Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&family=Noto+Sans+JP:wght@400;500;700&family=Open+Sans:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- <script src={grid}></script> -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MDGH2VT"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="page-loader"><div class="spinner"><span></span></div></div>
+    <!-- A little help for the Netlify bots if you're not using a SSG -->
+    <form
+      name="contact"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
+      <input type="text" name="company" />
+      <input type="text" name="url" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="tel" />
+      <select name="cmethod"
+        ><option value="call">お電話</option>
+        <option value="email">メール</option>
+        <option value="both">どちらでも</option>
+      </select>
+
+      <textarea name="message"></textarea>
+      <input type="checkbox" name="agree" />
+    </form>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  html,
+  body {
+    @apply font-body;
+  }
+</style>
+<style lang="scss">
+  .page-loader {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    @apply flex items-center justify-center bg-secondary;
+    &.hidden {
+      animation: fadeOut 1s;
+      animation-fill-mode: forwards;
+    }
+  }
+  @keyframes fadeOut {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  .spinner {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    animation: animate 2s linear infinite;
+    @apply bg-secondary;
+  }
+
+  @keyframes animate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .spinner::before {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0, 255, 249, 0.4));
+    border-top-left-radius: 100px;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 100px;
+  }
+
+  .spinner::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    bottom: 0;
+    left: 50%;
+    transform: translatex(-50%);
+    background-color: #00fff9;
+    box-shadow: 0 0 10px #00fff9, 0 0 20px #00fff9, 0 0 30px #00fff9,
+      0 0 40px #00fff9, 0 0 50px #00fff9, 0 0 60px #00fff9, 0 0 70px #00fff9,
+      0 0 80px #00fff9, 0 0 90px #00fff9, 0 0 100px #00fff9;
+    z-index: 10;
+  }
+
+  .spinner span {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    @apply bg-secondary;
+  }
+</style>
+<script>
+  (function (d) {
+    window.addEventListener("load", function () {
+      const loader = document.querySelector(".page-loader");
+      loader.className += " hidden";
+    });
+    var config = {
+        kitId: "jax0xgn",
+        scriptTimeout: 3000,
+        async: true,
+      },
+      h = d.documentElement,
+      t = setTimeout(function () {
+        h.className =
+          h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+      }, config.scriptTimeout),
+      tk = d.createElement("script"),
+      f = false,
+      s = d.getElementsByTagName("script")[0],
+      a;
+    h.className += " wf-loading";
+    tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+    tk.async = true;
+    tk.onload = tk.onreadystatechange = function () {
+      a = this.readyState;
+      if (f || (a && a != "complete" && a != "loaded")) return;
+      f = true;
+      clearTimeout(t);
+      try {
+        Typekit.load(config);
+      } catch (e) {}
+    };
+    s.parentNode.insertBefore(tk, s);
+  })(document);
+</script>
+<script src="../scripts/index.js"></script>

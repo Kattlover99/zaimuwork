@@ -1,0 +1,106 @@
+---
+import ShieldCheck from "astro-heroicons/solid/ShieldCheck.astro";
+import Card from "./Card.astro";
+import SectionWrapper from "./SectionWrapper.astro";
+---
+
+<SectionWrapper id="jisseki" sclass="jisseki relative mt-6" bg="bg-light">
+  <h3
+    class="heading_main heading_main__small text-center font-serif tracking-wider"
+  >
+    <span class="ribbon__kake"
+      ><ShieldCheck />様々な税務調査の<br class="show-xs" />対応実績</span
+    >
+  </h3>
+  <ul
+    class="grid grid-cols-jcard-md justify-center md:gap-7 xl:grid-cols-jcard-xl"
+  >
+    <Card
+      circle={true}
+      label="CASE 1"
+      title="数年に渡り2億円の所得隠し<br>で逮捕事案になった事例"
+      ><span class="marker">逮捕回避</span><br />+ <span class="marker"
+        >1億8千5百万円減額</span
+      >
+    </Card>
+    <Card
+      circle={true}
+      label="CASE 2"
+      title="架空発注で1億円を別会社に流し、損金計上にした脱税事例"
+      ><span class="marker">逮捕リスク回避</span><br />+ <span class="marker"
+        >1億円減額</span
+      >
+    </Card>
+    <Card
+      circle={true}
+      label="CASE 3"
+      title="3年間に渡る代表経費4,000万円の租税回避をした事例"
+      >調査対象を<span class="marker">2期分短縮</span>
+    </Card>
+  </ul>
+  <div class="more_block mx-auto mt-24 lg:max-w-[1000px]">
+    <h4
+      class="heading_main heading_main__smaller mb-12 text-center font-serif tracking-wider text-secondary md:mb-14"
+    >
+      <span class="side_line">その他多数の事例にも対応</span>
+    </h4>
+    <ul class="grid md:grid-cols-2 md:gap-7">
+      <Card icon={true}
+        ><strong>売上の一部を隠し</strong><br
+        />口座に入金して申告していなかった</Card
+      >
+      <Card icon={true}
+        >請求書や領収書などの資料が<br /><strong>全く残っていない</strong>
+      </Card>
+      <Card icon={true}
+        >経費や売上を<br class="show-xs"><strong>ごまかして申告</strong>していた</Card
+      >
+      <Card icon={true}><strong>10年間無申告</strong>だった</Card>
+    </ul>
+  </div>
+</SectionWrapper>
+<style lang="scss">
+  .grid {
+    @apply px-5  md:px-4;
+  }
+  strong {
+    @apply text-[120%] text-secondary;
+  }
+  h3.heading_main {
+    @apply absolute left-0 -top-6 flex w-full justify-center;
+  }
+  h4.heading_main {
+    @apply flex justify-center;
+  }
+  .side_line {
+    @apply flex items-center justify-center;
+    &:before,
+    &:after {
+      content: "";
+      @apply h-[1px] w-[110px] bg-secondary md:w-[160px];
+    }
+    &:before {
+      @apply mr-3;
+    }
+    &:after {
+      @apply ml-3;
+    }
+  }
+  .ribbon__kake {
+    @apply relative flex items-center bg-primary px-8 py-2 text-left text-white;
+    svg {
+      @apply mr-3 -ml-2 h-7 w-7;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      right: -0.75em;
+      top: 0;
+      border-width: 0em 0.75em 1em 0;
+      border-style: solid;
+      border-color: transparent;
+      display: block;
+      @apply border-b-secondary;
+    }
+  }
+</style>

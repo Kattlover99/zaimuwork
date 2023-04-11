@@ -1,0 +1,112 @@
+---
+import SectionWrapper from "./SectionWrapper.astro";
+import Heading from "./parts/Heading.astro";
+import Thumb from "./parts/Thumb.astro";
+import ExclamationCircle from "astro-heroicons/solid/ExclamationCircle.astro";
+const { title, subtitle, ...attrs } = Astro.props;
+const listItems = [
+  "<strong>35~40%</strong>の重加算税",
+  "<strong>14.6％</strong>の延滞税",
+  "反面調査で<strong>取引先を失う</strong>",
+  "調査期間が7期分に延長され、<strong>税金が2倍以上</strong>に",
+  "徹底的に調べられ<strong>調査が1年以上</strong>続く",
+  "逮捕や新聞沙汰になり<strong>事業継続が困難</strong>になる",
+];
+const Images = [
+  {
+    src: "images/risk_01.jpg",
+    // w: "257",
+    // h: "293",
+    alt: "feature 01",
+  },
+  {
+    src: "images/risk_02.jpg",
+    // w: "155",
+    // h: "155",
+    alt: "feature 02",
+  },
+  {
+    src: "images/risk_03.jpg",
+    // w: "227",
+    // h: "203",
+    alt: "feature 03",
+  },
+];
+---
+
+<SectionWrapper id="risk" sclass="risk" bg="bg-even">
+  <div
+    class="grid items-center gap-2 md:grid-cols-12 md:justify-between md:gap-x-6"
+  >
+    <div class="px-container col-start-1 md:col-span-6 md:col-start-1">
+      <Thumb imgs={Images} cls="w-full" />
+    </div>
+    <div
+      class="content elem-content px-container md:col-span-6 md:col-start-7 xl:col-span-5"
+    >
+      <Heading subtitle={subtitle} size="large" classname="mb-8 text-secondary"
+        ><Fragment set:html={title} />
+      </Heading>
+      <slot />
+      <div class="elem-box relative">
+        <div class="card elem-card dark">
+          <ul class="list">
+            <!-- {myFavoritePokemon.map((data) => <li>{data.name}</li>)} -->
+            {
+              listItems.map((item) => (
+                <li class="list_item">
+                  <>
+                    <ExclamationCircle />
+                    <span class="text"><Fragment set:html={item} /></span>
+                  </>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</SectionWrapper>
+
+<style lang="scss">
+  .label {
+    &-cutted {
+      @apply inline-block;
+      .label {
+        @apply leading-ribbon inline-block px-6 text-lg font-bold tracking-wider text-white;
+      }
+      &-left,
+      &-right {
+        @apply flex;
+        &:before,
+        &:after {
+          @apply border-ribbon block border-solid border-transparent;
+        }
+      }
+      &-left {
+        &:before {
+          content: "";
+          @apply border-r-secondary;
+        }
+      }
+      &-right {
+        &:after {
+          content: "";
+          @apply border-l-primary;
+        }
+      }
+    }
+  }
+  .elem {
+    &-content {
+      @apply mt-10 md:mt-0;
+    }
+    &-card {
+      @apply bg-secondary rounded-2xl py-10 px-6 text-white drop-shadow-xl;
+    }
+    &-by {
+      @apply text-secondary font-semibold tracking-wider opacity-60;
+    }
+  }
+</style>

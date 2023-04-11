@@ -1,0 +1,191 @@
+---
+import Phone from "astro-heroicons/solid/Phone.astro";
+import Envelope from "astro-heroicons/solid/Envelope.astro";
+import "../styles/components/Button.scss";
+export interface Props {
+  title?: string;
+  caption?: string;
+  openhour?: boolean;
+  isnum?: boolean;
+  classname?: string;
+  cta?: boolean;
+  footer?: boolean;
+}
+const openhourtext = "受付時間:平日 10:00-18:00";
+
+const {
+  title,
+  caption,
+  openhour = false,
+  isnum = false,
+  classname = "button",
+  cta = false,
+  footer = false,
+} = Astro.props;
+const TelNum = "03-6803-8667";
+const LinkTel = `tel:${TelNum}`;
+const LinkForm = "#lpform";
+---
+
+<li class={`ctc__act ctc__${classname} ${isnum ? "tel" : "email"}`}>
+  {
+    !cta && (
+      <>
+        <a href={isnum ? LinkTel : LinkForm} class="ctc__link" />
+      </>
+    )
+  }
+  {caption && <span class="ctc__caption">{caption}</span>}
+  <span class={`ctc__titles ${footer && "minimal"}`}>
+    {
+      cta ? (
+        <>
+          <a
+            href={isnum ? LinkTel : LinkForm}
+            class={`ctc__title btn ${
+              isnum ? "num" : "text btn--medium btn--primary"
+            }`}
+          >
+            <span class="shine"></span>
+            {isnum ? <Phone /> : <Envelope />}
+            {isnum ? TelNum : title}
+          </a>
+        </>
+      ) : (
+        <>
+          <h3 class={`ctc__title ${isnum ? "num" : "text"}`}>
+            {isnum ? <Phone /> : <Envelope />}
+            {isnum ? TelNum : title}
+          </h3>
+        </>
+      )
+    }
+
+    {
+      openhour && (
+        <>
+          <span class="ctc__small">
+            {openhourtext}
+            {cta && " (年末年始を除く)"}
+          </span>
+        </>
+      )
+    }
+  </span>
+</li>
+{
+  cta && isnum && (
+    <>
+      <li class="ctc__or">
+        <span>OR</span>
+      </li>
+    </>
+  )
+}
+<style lang="scss">
+  .ctc {
+    &__act {
+      @apply relative text-center;
+      > a {
+        @apply absolute left-0 top-0 h-full w-full;
+      }
+      span {
+        line-height: 1;
+      }
+    }
+    &__caption {
+      @apply hidden font-bold tracking-wider md:block;
+    }
+
+    &__title {
+      @apply flex items-center justify-center text-sm font-bold;
+      &.text {
+        letter-spacing: 2px;
+      }
+      &.num {
+        @apply font-sans text-[1.15rem];
+      }
+    }
+    &__small {
+      @apply text-secondary block text-[.65rem] font-semibold tracking-wide;
+    }
+    &__button {
+      display: flex;
+      flex-direction: column;
+      > span {
+        @apply md:px-[1.5rem];
+        &:last-child {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+      .ctc {
+        &__titles {
+          @apply py-[.75rem];
+        }
+        &__title {
+          svg {
+            @apply mr-1.5 h-4 w-4;
+          }
+        }
+        &__caption {
+          @apply py-[.325rem] text-xs leading-[1];
+        }
+        &__small {
+          @apply mt-[.35rem];
+        }
+      }
+      &.tel {
+        .ctc {
+          &__titles {
+            @apply text-primary bg-light02;
+            &.minimal {
+              @apply p-0 bg-transparent;
+              .ctc__title, .ctc__small {
+                @apply text-white;
+              }
+            }
+          }
+          &__caption {
+            @apply text-secondary bg-main01;
+          }
+          &__small {
+            @apply text-secondary;
+          }
+        }
+      }
+      &.email {
+        .ctc {
+          &__titles {
+            @apply bg-primary text-white;
+          }
+          &__caption {
+            @apply bg-main02 text-white;
+          }
+        }
+      }
+    }
+    &__cta-view {
+      &.email {
+        .ctc {
+          &__titles {
+            @apply flex justify-center;
+          }
+        }
+      }
+      .ctc {
+        &__titles {
+          @apply block sm:inline-block;
+        }
+        &__caption {
+          @apply text-secondary mb-3 block text-sm opacity-60;
+        }
+        &__small {
+          @apply mt-[.65rem];
+        }
+      }
+    }
+  }
+</style>

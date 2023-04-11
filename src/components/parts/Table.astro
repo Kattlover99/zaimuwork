@@ -1,0 +1,41 @@
+---
+const { cls = "table-minmal", TableArray } = Astro.props;
+---
+
+<table class={cls}>
+  <tbody>
+    {
+      TableArray.map((tr, i) => (
+        <tr>
+          <th>
+            <Fragment set:html={tr.th} />
+          </th>
+          <td><Fragment set:html={tr.td} /></td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style lang="scss">
+  table {
+    @apply w-full;
+    th,
+    td {
+      @apply border-b-[1px] border-solid border-even p-3 text-left text-[.875rem] font-medium tracking-wider;
+    }
+    tr:last-child {
+      th,
+      td {
+        @apply border-b-0;
+      }
+    }
+    th {
+      @apply relative min-w-[150px];
+      &:after {
+        content: "";
+        @apply absolute top-[12%] right-0 h-[76%] w-[1px] bg-even;
+      }
+    }
+  }
+</style>

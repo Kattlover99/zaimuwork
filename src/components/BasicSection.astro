@@ -1,0 +1,88 @@
+---
+import SectionWrapper from "./SectionWrapper.astro";
+import Heading from "./parts/Heading.astro";
+import Thumb from "./parts/Thumb.astro";
+export interface Props {
+  id: string;
+  title: string;
+  titleClass?: string;
+  subtitle?: string;
+  image?: boolean;
+  imgAry?: any;
+  align?: string;
+  bg?: string;
+  bgimg?: string;
+  text?: string;
+  labels?: any;
+  caption?: string;
+  anim?: string;
+  parallax?: boolean;
+}
+const {
+  id,
+  title,
+  titleClass,
+  subtitle,
+  align = "text-left",
+  bg = "",
+  bgimg = "",
+  text,
+  image = true,
+  imgAry,
+  labels,
+  caption,
+  anim,
+  parallax = false,
+  ...attrs
+} = Astro.props;
+---
+
+<SectionWrapper id={id} sclass={id} bg={bg} bgimg={bgimg}>
+  <div
+    class={image
+      ? `grid items-center gap-2 lg:grid-cols-12 lg:justify-between lg:gap-x-6`
+      : `grid`}
+  >
+    {
+      image && (
+        <div class="px-container col-start-1 lg:col-span-5 lg:col-start-1 xl:col-span-5 xl:col-start-2">
+          <Thumb
+            imgs={imgAry}
+            cls="w-full"
+            labels={labels}
+            caption={caption}
+            anim={anim}
+          />
+        </div>
+      )
+    }
+    <div
+      class={`content elem-content px-container ${
+        image && "above_img lg:col-span-6 lg:col-start-6 xl:col-span-5"
+      }`}
+    >
+      <Heading
+        subtitle={subtitle}
+        align={align}
+        size="large"
+        classname={`mb-8 ${text && "dark"} ${
+          subtitle ? "text-primary" : "text-secondary"
+        } ${titleClass && titleClass}`}
+        subcname={text ? "dark" : ""}
+        ><Fragment set:html={title} />
+      </Heading>
+      <slot />
+    </div>
+  </div>
+</SectionWrapper>
+<style lang="scss">
+  .elem-content {
+    @apply mt-10 lg:mt-0;
+    &:first-child {
+      @apply mt-0;
+    }
+    &.above_img {
+      @apply max-w-full md:max-w-[70%] mx-auto lg:mx-0 lg:max-w-full;
+    }
+  }
+</style>
