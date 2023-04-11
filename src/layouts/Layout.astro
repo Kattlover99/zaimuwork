@@ -27,6 +27,7 @@ const { title = "税務調査トラブル対策機構" } = Astro.props as Props;
     </script>
     <!-- Google Tag Manager -->
     <meta charset="UTF-8" />
+    
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -51,25 +52,41 @@ const { title = "税務調査トラブル対策機構" } = Astro.props as Props;
     <!-- End Google Tag Manager (noscript) -->
     <div class="page-loader"><div class="spinner"><span></span></div></div>
     <!-- A little help for the Netlify bots if you're not using a SSG -->
-    <form
-  name="contact"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  hidden
->
-  <input type="text" name="company" />
-  <input type="text" name="url" />
-  <input type="text" name="お名前" /> <!-- Use Japanese label for name field -->
-  <input type="email" name="email" />
-  <input type="tel" name="tel" />
-  <select name="連絡方法"> <!-- Use Japanese label for cmethod field -->
-    <option value="お電話">お電話</option>
-    <option value="メール">メール</option>
-    <option value="どちらでも">どちらでも</option>
-  </select>
-
-  <textarea name="お問い合わせ内容"></textarea> <!-- Use Japanese label for message field -->
-  <input type="checkbox" name="同意する" /> <!-- Use Japanese label for agree field -->
+<form name="contact" method="POST" data-netlify="true">
+  <input type="hidden" name="subject" value="お問い合わせ" />
+  <p>
+    <label>会社名: <input type="text" name="company" /></label>
+  </p>
+  <p>
+    <label>URL: <input type="text" name="url" /></label>
+  </p>
+  <p>
+    <label>お名前: <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>メールアドレス: <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <label>電話番号: <input type="tel" name="tel" /></label>
+  </p>
+  <p>
+    <label>ご連絡方法: 
+      <select name="cmethod">
+        <option value="call">お電話</option>
+        <option value="email">メール</option>
+        <option value="both">どちらでも</option>
+      </select>
+    </label>
+  </p>
+  <p>
+    <label>お問い合わせ内容: <textarea name="message"></textarea></label>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="agree" />
+      <span>プライバシーポリシーに同意する</span>
+    </label>
+  </p>
 </form>
     <slot />
   </body>
