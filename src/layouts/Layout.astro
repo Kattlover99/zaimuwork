@@ -62,7 +62,7 @@ const { title = "税務調査トラブル対策機構" } = Astro.props as Props;
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="tel" name="tel" />
-      <select name="cmethod"
+      <select name="ご希望連絡方法"
         ><option value="call">お電話</option>
         <option value="email">メール</option>
         <option value="both">どちらでも</option>
@@ -157,6 +157,7 @@ const { title = "税務調査トラブル対策機構" } = Astro.props as Props;
     @apply bg-secondary;
   }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/nodemailer"></script>
 <script>
   (function (d) {
     window.addEventListener("load", function () {
